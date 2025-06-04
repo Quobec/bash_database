@@ -28,6 +28,9 @@ create(){
 	echo "PESEL: ${pesel}"
 
 	read accepted
+    if [ -z "$accepted" ]; then
+        accepted="n"
+    fi
 	clear
 
 	done
