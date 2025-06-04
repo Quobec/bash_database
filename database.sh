@@ -93,20 +93,48 @@ create(){
 
 # When I named function read, it looped
 find(){
-    echo "Input ID to search:"
-    read search
-	if [ -n "$search" ]; then
-		record=$(grep "|id:${search}|" "$table_records_file")
-		if [ -n "$record" ]; then
-			clear
-			echo $record
-		else
-			clear
-			echo "No record found with id:$search"
+    echo "Search by: (id/name/surname/adress/phone_number/pesel)"
+    read search_by
+    echo "equal to:"
+    read search_value
+
+	fields=("id" "name" "surname" "adress" "phone_number" "pesel")
+	valid_field=false
+	for field in "${fields[@]}"; do
+		if [[ "$field" == "$search_by" ]]; then
+			valid_field=true
+			break
 		fi
-    else
-        cat $table_records_file
-    fi
+	done
+
+	if $valid_field; then
+		if [ -n "$search_value" ]; then
+			record=$(grep "|${search_by}:${search_value}|" "$table_records_file")
+			if [ -n "$record" ]; then
+				clear
+				id=$(echo "$record" | sed -n 's/.*|id:\([^|]*\).*/\1/p')
+				name=$(echo "$record" | sed -n 's/.*|name:\([^|]*\).*/\1/p')
+				surname=$(echo "$record" | sed -n 's/.*|surname:\([^|]*\).*/\1/p')
+				adress=$(echo "$record" | sed -n 's/.*|adress:\([^|]*\).*/\1/p')
+				phone_number=$(echo "$record" | sed -n 's/.*|phone_number:\([^|]*\).*/\1/p')
+				pesel=$(echo "$record" | sed -n 's/.*|pesel:\([^|]*\).*/\1/p')
+
+				echo "ID: ${id}"
+				echo "Name: ${name}" 
+				echo "Surname: ${surname}" 
+				echo "Address: ${address}" 
+				echo "Phone number: ${phone_number}" 
+				echo "PESEL: ${pesel}" 
+			else
+				clear
+				echo "No record found with $search_by:$search_value"
+			fi
+		else
+			cat $table_records_file
+		fi
+	else
+		echo "Invalid field"
+	fi
 
 	echo "--------------------"
 }
