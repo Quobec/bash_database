@@ -184,7 +184,7 @@ id_index=$(grep '^id_index=' "$table_data_file" | cut -d'=' -f2)
 choosen_action='sh'
 actions=('exit' 'create' 'read' 'delete' 'sh')
 actions_shortcuts=('e' 'c' 'r' 'd' 's')
-actions_descs=('Exit the database.' 'Create a new record.'  'Find and read a record by id.' 'Delete a record by id.' 'Says hello')
+actions_descs=('Exit the database.' 'Create a new record.'  'Find and read a record by given field.' 'Delete a record by id.' 'Says hello')
 
 while [ $choosen_action != 'exit' ]; do
 	echo 'Choose an action'

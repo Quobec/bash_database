@@ -13,14 +13,12 @@ char_count=${#value}
 char_count="${char_count//[[:space:]]/}"
 argument="${argument//[[:space:]]/}"
 
-if ! [[ "$value" =~ ^[0-9]+$ ]]; then
-  echo "Field '${column}' must be a number."
-elif [[ "$char_count" == "$argument" ]]; then
+if (("$char_count" >= "$argument")); then
   echo "None" 
 else
   # Idk whats wrong here. Problem arises when there are 2 arugments in echoed string. script by itself outputs correctly but output read in database.sh is wrong
   # It fixed itself after i trimmed whitespaces. ??????
-  echo "Field '${column}' must have ${argument} digits."
+  echo "Field '${column}' must have at least ${argument} characters."
 fi
 
 exit 0
