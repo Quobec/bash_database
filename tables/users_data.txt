@@ -1,4 +1,5 @@
 validate::phone_number:digits:9,unique
 validate::surname:unique
 validate::pesel:unique,digits:11
-id_index=7
+# There is a problem with singlugar validation rules. Instead of reading them as e.g. ["unique"] they are read as ["unique",""]. MacOs doesnt have this problem, but linux does.
+id_index=9

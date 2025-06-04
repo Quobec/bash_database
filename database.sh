@@ -73,7 +73,13 @@ create(){
 		id_index_line=$(grep '^id_index=' "$table_data_file")
 		id_index=$(echo "$id_index_line" | cut -d'=' -f2)
 		new_value=$((id_index + 1))
-		sed -i "s/^id_index=[0-9]*/id_index=$new_value/" "$table_data_file"
+
+		#had to add cross compatibility
+		if [[ "$OSTYPE" == "darwin"* ]]; then
+			sed -i '' "s/^id_index=[0-9]*/id_index=$new_value/" "$table_data_file"
+		else
+			sed -i "s/^id_index=[0-9]*/id_index=$new_value/" "$table_data_file"
+		fi
 
 		# Create new record
 		echo "|id:${id}|name:${name}|surname:${surname}|adress:${adress}|phone_number:${phone_number}|pesel:${pesel}|" >> "$table_records_file"
@@ -83,6 +89,55 @@ create(){
 	fi
 
 	# clear
+}
+
+# When I named function read, it looped
+find(){
+    echo "Input ID to search:"
+    read search
+	if [ -n "$search" ]; then
+		record=$(grep "|id:${search}|" "$table_records_file")
+		if [ -n "$record" ]; then
+			clear
+			echo $record
+		else
+			clear
+			echo "No record found with id:$search"
+		fi
+    else
+        cat $table_records_file
+    fi
+
+	echo "--------------------"
+}
+
+delete() {
+    echo "Input ID to search and remove:"
+    read search
+    if [ -z "$search" ]; then
+        echo "ID cannot be empty."
+        return
+    fi
+
+    line=$(grep "|id:$search|" "$table_records_file")
+    if [ -n "$line" ]; then
+        echo "Are you sure you want to delete the following record? (y/n)"
+        echo "$line"
+        read accept
+        
+        if [ "$accept" = "y" ]; then 
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                sed -i '' "/|id:$search|/d" "$table_records_file"
+            else
+                sed -i "/|id:$search|/d" "$table_records_file"
+            fi
+            echo "Record with id:$search has been removed."
+        else
+            echo "Action canceled."
+        fi
+    else
+        echo "No record found with id:$search."
+    fi
 }
 
 table_name="users"
@@ -109,6 +164,12 @@ while [ $choosen_action != 'exit' ]; do
 	case "$choosen_action" in
 		create)
 			create
+			;;
+		read)
+			find
+			;;
+		delete)
+			delete
 			;;
 		sh)
 			echo 'Hello there!'

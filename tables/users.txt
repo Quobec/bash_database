@@ -1,8 +1,9 @@
-|id:1|name:y|surname:y|adress:|phone_number:y|pesel:y|
 |id:2|name:t|surname:t|adress:|phone_number:t|pesel:t|
 |id:3|name:i|surname:i|adress:|phone_number:i|pesel:i|
-|id:4|name:y|surname:y|adress:|phone_number:y|pesel:test|
 |id:5|name:jan|surname:kol|adress:|phone_number:999111111|pesel:11122211122|
 |id:6|name:y|surname:y|adress:|phone_number:999222111|pesel:111222333444|
 |id:6|name:Tom|surname:|adress:|phone_number:888776222|pesel:99988822222|
 |id:7|name:y|surname:y|adress:|phone_number:888776222|pesel:77766655544|
+|id:8|name:r|surname:e|adress:|phone_number:111111222|pesel:99922999883|
+|id:8|name:77|surname:7|adress:|phone_number:777777777|pesel:77777777777|
+|id:9|name:2|surname:2|adress:|phone_number:222222222|pesel:22222222222|
