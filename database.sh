@@ -198,6 +198,11 @@ while [ $choosen_action != 'exit' ]; do
 	
 	clear
 
+
+    if [ -z "$choosen_action" ]; then
+        choosen_action='invalid_action'
+    fi
+
 	case "$choosen_action" in
 		create)
 			create
