@@ -1,0 +1,4 @@
+validate::phone_number:digits:9,unique
+validate::surname:unique
+validate::pesel:unique,digits:11
+id_index=7
