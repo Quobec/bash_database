@@ -83,6 +83,7 @@ create(){
 
 		# Create new record
 		echo "|id:${id}|name:${name}|surname:${surname}|adress:${adress}|phone_number:${phone_number}|pesel:${pesel}|" >> "$table_records_file"
+		echo ""
 	else
 		echo "$error"
 		sleep 5
@@ -125,18 +126,20 @@ find(){
 				echo "Address: ${address}" 
 				echo "Phone number: ${phone_number}" 
 				echo "PESEL: ${pesel}" 
+				echo ""
 			else
 				clear
 				echo "No record found with $search_by:$search_value"
+				echo ""
 			fi
 		else
 			cat $table_records_file
+			echo ""
 		fi
 	else
 		echo "Invalid field"
+		echo ""
 	fi
-
-	echo "--------------------"
 }
 
 delete() {
@@ -144,6 +147,7 @@ delete() {
     read search
     if [ -z "$search" ]; then
         echo "ID cannot be empty."
+		echo ""
         return
     fi
 
@@ -159,12 +163,16 @@ delete() {
             else
                 sed -i "/|id:$search|/d" "$table_records_file"
             fi
+			clear
             echo "Record with id:$search has been removed."
+			echo ""
         else
             echo "Action canceled."
+			echo ""
         fi
     else
         echo "No record found with id:$search."
+		echo ""
     fi
 }
 
