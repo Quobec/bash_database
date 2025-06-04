@@ -147,6 +147,7 @@ id_index=$(grep '^id_index=' "$table_data_file" | cut -d'=' -f2)
 
 choosen_action='sh'
 actions=('exit' 'create' 'read' 'delete' 'sh')
+actions_shortcuts=('e' 'c' 'r' 'd' 's')
 actions_descs=('Exit the database.' 'Create a new record.'  'Find and read a record by id.' 'Delete a record by id.' 'Says hello')
 
 while [ $choosen_action != 'exit' ]; do
@@ -154,7 +155,7 @@ while [ $choosen_action != 'exit' ]; do
 
 	actions_count=${#actions[@]}
 	for ((i = 0; i < actions_count; i++)); do
-		echo "$((i + 1)): ${actions[i]} - ${actions_descs[i]}"
+		echo "$((i + 1)): ${actions[i]} - ${actions_shortcuts[i]} - ${actions_descs[i]}"
 	done
 
 	read choosen_action
@@ -165,16 +166,32 @@ while [ $choosen_action != 'exit' ]; do
 		create)
 			create
 			;;
+		c)
+			create
+			;;
 		read)
+			find
+			;;
+		r)
 			find
 			;;
 		delete)
 			delete
 			;;
+		d)
+			delete
+			;;
 		sh)
 			echo 'Hello there!'
 			;;
+		s)
+			echo 'Hello there!'
+			;;
 		exit)
+			echo 'Exiting...'
+			exit 0
+			;;
+		e)
 			echo 'Exiting...'
 			exit 0
 			;;
