@@ -85,7 +85,7 @@ create(){
 		fi
 
 		# Create new record
-		echo "|id:${id}|name:${name}|surname:${surname}|adress:${adress}|phone_number:${phone_number}|pesel:${pesel}|" >> "$table_records_file"
+		echo "|id:${id}|name:${name}|surname:${surname}|address:${address}|phone_number:${phone_number}|pesel:${pesel}|" >> "$table_records_file"
 		echo ""
 	else
 		echo "$error"
